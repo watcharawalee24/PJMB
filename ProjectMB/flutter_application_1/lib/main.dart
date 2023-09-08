@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Screen/Add.dart';
 import 'package:flutter_application_1/Screen/Cosmeceuticals.dart';
+import 'package:flutter_application_1/Screen/Edit.dart';
 import 'package:flutter_application_1/Screen/Login.dart';
 import 'package:flutter_application_1/Screen/Oily%20Skin.dart';
 //import 'package:flutter_application_1/Screen/Recommend.dart';
@@ -27,6 +29,8 @@ class MainApp extends StatelessWidget {
         '/userform':(context) => UserForm(),
         '/chat':(context) => ChatScreen(),
         '/oilyskin':(context) => OilySkin(),
+        '/edit':(context) => Edit(),
+        '/add':(context) => Add(),
         
       
       },

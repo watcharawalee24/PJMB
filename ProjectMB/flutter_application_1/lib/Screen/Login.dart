@@ -5,7 +5,6 @@ import 'package:flutter_application_1/model/login_result.dart';
 import 'package:http/http.dart' as http;
 
 
-
 class Login extends StatefulWidget {
   static const routeName = '/login';
 
@@ -89,16 +88,12 @@ class _LoginState extends State<Login> {
                           SizedBox(height: 20.0),
                           passwordInputField(),
                           SizedBox(height: 20.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              submitButton(),
-                              SizedBox(width: 10.0),
-                            ],
-                          ),
+                          submitButton(),
                         ],
                       ),
                     ),
+                    SizedBox(height: 10.0), // เพิ่มระยะห่างระหว่างปุ่ม
+                    registerLink(), // เพิ่มปุ่ม "Back"
                   ],
                 ),
               ),
@@ -111,7 +106,7 @@ class _LoginState extends State<Login> {
 
   Widget emailInputField() {
     return TextFormField(
-      initialValue: "a@test.com",
+      initialValue: "b@test.com",
       decoration: InputDecoration(
         labelText: 'Username',
         prefixIcon: Icon(Icons.email),
@@ -133,7 +128,7 @@ class _LoginState extends State<Login> {
 
   Widget passwordInputField() {
     return TextFormField(
-      initialValue: "64110570",
+      initialValue: "64112758",
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
@@ -177,13 +172,12 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget backButton() {
-    return ElevatedButton(
-      onPressed: () {
-        // สร้างการนำทางกลับไปยังหน้าก่อนหน้านี้
-        Navigator.pop(context);
-      },
-      child: Text('Back'),
-    );
-  }
+ Widget registerLink() {
+  return InkWell(
+    child: const Text("Sign Up"), 
+    onTap: () {
+      Navigator.pushNamed(context, '/add'); 
+    },
+  );
+}
 }

@@ -1,41 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Screen/Edit.dart';
-import 'chat.dart';
-import 'Oily Skin.dart';
+import 'package:flutter_application_1/Screen/Cosmeceuticals.dart';
+import 'package:http/http.dart' as http;
+import '../model/config.dart';
+import '../model/login_result.dart';
+import 'User Form.dart';
+import 'User Info.dart';
 
-class COSMECEUTICALS extends StatefulWidget {
-  static const routeName = '/cosmeceuticals';
-  const COSMECEUTICALS({Key? key}) : super(key: key);
+
+class Edit extends StatefulWidget {
+  static const routeName = '/edit';
+  const Edit({Key? key}) : super(key: key);
 
   @override
-  State<COSMECEUTICALS> createState() => _COSMECEUTICALSState();
+  State<Edit> createState() => _EditState();
 }
 
-class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
+class _EditState extends State<Edit> {
   String loggedInUser = 'Puttaraporn Prasansang';
+  Widget mainBody = Container();
+  List<Users> _userList = [];
 
+  Future<void> getUsers() async {
+    var url = Uri.http(Configure.server, "users");
+    var resp = await http.get(url);
+    setState(() {
+      _userList = usersFromJson(resp.body);
+      mainBody = showUsers(context); // แก้เพื่อให้เรียก showUsers พร้อม context
+    });
+    return;
+  }
 
+  Future<void> removeUsers(user) async {
+    var url = Uri.http(Configure.server, "users/${user.id}");
+    var resp = await http.delete(url);
+    print(resp.body);
+    return;
+  }
 
   void handleLogout(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed('/');
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 
   void openHome(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => COSMECEUTICALS(),
-      ),
-    );
+    Navigator.of(context).pushReplacementNamed(COSMECEUTICALS.routeName);
   }
-  void edituser(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => Edit(),
-      ),
-    );
-  }
+   void editProfile(BuildContext context) {
+  Navigator.of(context).pushNamed(UserForm.routeName);
+}
 
-  void showLeftMenu(BuildContext context) {
+ void showLeftMenu(BuildContext context) {
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(10, 50, 0, 0),
@@ -60,36 +74,35 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
             handleLogout(context);
           },
         ),
-        PopupMenuItem(
-          child: ListTile(
-            leading: Icon(Icons.person),
-            title: Text('แก้ไขข้อมูล'),
-          ),
-          onTap: () {
-            Navigator.pushNamed(context, Edit.routeName);
-            edituser(context);
-          },
+          PopupMenuItem(
+        child: ListTile(
+          leading: Icon(Icons.person),
+          title: Text('แก้ไขข้อมูล'),
         ),
+       onTap: () {
+            Navigator.of(context).pop();
+            editProfile(context);
+          },
+      ),
       ],
     );
   }
 
-  void onTapCosmeticsBox(String title, BuildContext context) {
-    if (title == "ผิวมัน") {
-      Navigator.pushNamed(context, OilySkin.routeName);
-    } else {
-      // ใส่โค้ดอื่นๆ สำหรับ CosmeticsBox ที่ title ไม่ใช่ "ผิวมัน" ที่นี่
-    }
-  }
 
   @override
-  
+  void initState() {
+    super.initState();
+    Users user = Configure.login;
+    if (user.id != null) {
+      getUsers();
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "COSMECEUTICALS",
+          "Edit",
           style: TextStyle(
             color: Colors.brown,
             fontSize: 30.0,
@@ -148,64 +161,74 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
           GridView.count(
             crossAxisCount: 2,
             children: <Widget>[
-              CosmeticsBox(
-                title: "ผิวมัน",
-                image:
-                    "https://i.pinimg.com/474x/e7/9c/83/e79c83345325c8169c9755b1a1299018.jpg",
-                onTap: () {
-                  onTapCosmeticsBox("ผิวมัน", context);
-                },
-              ),
-              CosmeticsBox(
-                title: "ผิวผสม",
-                image:
-                    "https://i.pinimg.com/564x/04/e9/42/04e9428fdc68c1781ded170dc27afe4a.jpg",
-                onTap: () {},
-              ),
-              CosmeticsBox(
-                title: "ผิวแห้ง",
-                image:
-                    "https://i.pinimg.com/564x/84/53/76/8453761424031c86d6274e353fbc3485.jpg",
-                onTap: () {},
-              ),
-              CosmeticsBox(
-                title: "ผิวแพ้ง่าย",
-                image:
-                    "https://i.pinimg.com/564x/ff/6b/7b/ff6b7b31c4f3c44e2ee99353875427b5.jpg",
-                onTap: () {},
-              ),
+              
               // เพิ่ม CosmeticsBox อื่นๆ ที่คุณต้องการ
             ],
           ),
-          // ใช้ mainBody ใน Stack
+          mainBody, // ใช้ mainBody ใน Stack
         ],
       ),
-      floatingActionButton: Align(
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 1.0),
-          child: SizedBox(
-            width: 70.0,
-            height: 70.0,
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatScreen()),
-                );
-              },
-              child: Icon(Icons.chat),
-            ),
-          ),
-        ),
-      ),
+      backgroundColor:Color.fromARGB(255, 222, 174, 157) ,
+    
     );
   }
 
   // เพิ่ม showUsers ใน _COSMECEUTICALSState
-  
+  Widget showUsers(BuildContext context) {
+    return ListView.builder(
+      itemCount: _userList.length,
+      itemBuilder: (context, index) {
+        Users user = _userList[index];
+        return Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.endToStart,
+          child: Card(
+            child: ListTile(
+              title: Text("${user.firstName}",),
+              subtitle: Text("${user.email}"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserInfo(),
+                    settings: RouteSettings(arguments: user),
+                  ),
+                );
+              },
+              trailing: IconButton(
+                onPressed: () async {
+                  String result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserForm(),
+                      settings: RouteSettings(arguments: user),
+                    ),
+                  );
+                  if (result == "refresh") {
+                    getUsers();
+                  }
+                },
+                icon: Icon(Icons.edit,color: Colors.brown,),
+              ),
+            ),
+          ),
+          onDismissed: (direction) {
+            removeUsers(user);
+          },
+          background: Container(
+            color: Colors.red,
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            alignment: Alignment.centerRight,
+            child: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+    );
   }
-
+}
 
 class CosmeticsBox extends StatelessWidget {
   final String title;

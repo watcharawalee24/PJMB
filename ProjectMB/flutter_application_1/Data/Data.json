@@ -1,47 +1,34 @@
 {
-    "Users": [
-        {
-            "id":1,
-            "firstName": "Puttaraporn",
-            "lastName": "Prasansang",
-            "age": 21,
-            "Skintype":"Oily Skin",
-            "email": "a@test.com",
-            "password": "64110570",
-            "address":"จังหวัดสงขลา อำเภอเมือง ตำบลบ่อยาง  post:90000"
-             
-        },
-        {
-            "id":2,
-            "firstName": "Watcharawalee",
-            "lastName": "Junapong",
-            "age": 20,
-            "Skintype":"Combination Skin",
-            "email": "b@test.com",
-            "password": "64112758",
-            "address":"จังหวัดสงขลา อำเภอเมือง ตำบลบ่อยาง  post:90000"
-           
-        },
-        {
-            "id":3,
-            "firstName": "Huttaya",
-            "lastName": "Yodpijit",
-            "age": 21,
-            "Skintype":"Sensitive Skin",
-            "email": "c@test.com",
-            "password": "64115512",
-            "address":"จังหวัดนครศรีธรรมราช อำเภอท่าศาลา ตำบลท่าศาลา  post:80160"
-               
-        },
-        {
-            "id":4,
-            "firstName": "Benjawan",
-            "lastName": "Tanimsut",
-            "age": 21,
-            "Skintype":"dry Skin",
-            "email": "d@test.com",
-            "password": "64107758",
-            "address":"จังหวัดนครศรีธรรมราช อำเภอท่าศาลา ตำบลท่าศาลา  post:80160"
-        }
-    ]
+  "Users": [
+    {
+      "id": 2,
+      "firstName": "Watcharawalee",
+      "lastName": "Junapong",
+      "age": 20,
+      "Skintype": "Combination Skin",
+      "email": "b@test.com",
+      "password": "64112758",
+      "address": "จังหวัดสงขลา อำเภอเมือง ตำบลบ่อยาง  post:90000"
+    },
+    {
+      "id": 3,
+      "firstName": "Huttaya",
+      "lastName": "Yodpijit",
+      "age": 21,
+      "Skintype": "Sensitive Skin",
+      "email": "c@test.com",
+      "password": "64115512",
+      "address": "จังหวัดนครศรีธรรมราช อำเภอท่าศาลา ตำบลท่าศาลา  post:80160"
+    },
+    {
+      "id": 4,
+      "firstName": "Benjawan",
+      "lastName": "Tanimsut",
+      "age": 21,
+      "Skintype": "dry Skin",
+      "email": "d@test.com",
+      "password": "64107758",
+      "address": "จังหวัดนครศรีธรรมราช อำเภอท่าศาลา ตำบลท่าศาลา  post:80160"
+    }
+  ]
 }

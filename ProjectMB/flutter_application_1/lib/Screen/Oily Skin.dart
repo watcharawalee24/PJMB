@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
-import 'Cosmeceuticals.dart';
-// ตรงชื่อไฟล์ของคลาส COSMECEUTICALS ที่คุณสร้างไว้
-import 'User Form.dart';
+import 'items_widget.dart';
 
 class OilySkin extends StatefulWidget {
   static const routeName = '/oilyskin';
+
   const OilySkin({Key? key}) : super(key: key);
 
   @override
   State<OilySkin> createState() => _OilySkinState();
 }
 
-class _OilySkinState extends State<OilySkin> {
+class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin {
+  String loggedInUser = 'Puttaraporn Prasansang';
+ 
+  
   void handleLogout(BuildContext context) {
     Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed('/');
   }
-
-  void openHome(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(COSMECEUTICALS.routeName);
-  }
-   void editProfile(BuildContext context) {
-  Navigator.of(context).pushNamed(UserForm.routeName);
-}
 
   void showLeftMenu(BuildContext context) {
     showMenu(
@@ -36,7 +31,7 @@ class _OilySkinState extends State<OilySkin> {
           ),
           onTap: () {
             Navigator.of(context).pop();
-            openHome(context);
+            // ใส่โค้ดเมื่อกดปุ่ม 'หน้าหลัก'
           },
         ),
         PopupMenuItem(
@@ -49,16 +44,16 @@ class _OilySkinState extends State<OilySkin> {
             handleLogout(context);
           },
         ),
-          PopupMenuItem(
-        child: ListTile(
-          leading: Icon(Icons.person),
-          title: Text('แก้ไขข้อมูล'),
-        ),
-       onTap: () {
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('แก้ไขข้อมูลผู้ใช้'),
+          ),
+          onTap: () {
             Navigator.of(context).pop();
-            editProfile(context);
+            handleLogout(context);
           },
-      ),
+        ),
       ],
     );
   }
@@ -67,84 +62,159 @@ class _OilySkinState extends State<OilySkin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Oily Skin",
-          style: TextStyle(
-            color: Colors.brown,
-            fontSize: 30.0,
-            fontWeight: FontWeight.w500,
+        title: Center(
+          child: Text(
+            "Oily Skin",
+            style: TextStyle(
+              color: Colors.brown,
+              fontSize: 30.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         backgroundColor: Colors.white,
         actions: [
           Row(
             children: [
-              Icon(
-                Icons.account_circle,
-                color: Colors.grey,
-                size: 36.0,
+              IconButton(
+                icon: Tooltip(
+                  message: '',
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.grey,
+                    size: 36.0,
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('ข้อมูลผู้ใช้'),
+                        content: Center(child: Text('คุณ $loggedInUser ใช้งานอยู่')),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('ปิด'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
-              SizedBox(width: 8.0),
             ],
           ),
         ],
         leading: IconButton(
           icon: Icon(
-            Icons.menu,
+            Icons.sort_rounded,
             color: Color.fromARGB(255, 35, 2, 2),
-            size: 40.0,
+            size: 50.0,
           ),
           onPressed: () {
             showLeftMenu(context);
           },
         ),
       ),
-      body: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          String menuItemTitle;
-          if (index == 0) {
-            menuItemTitle = "Cleansing";
-          } else if (index == 1) {
-            menuItemTitle = "Moisturising";
-          } else if (index == 2) {
-            menuItemTitle = "Sunscreen";
-          } else {
-            menuItemTitle = "Serum";
-          }
-          return OilySkinMenuItem(title: menuItemTitle);
-        },
-      ),
-    );
-  }
-}
-
-class OilySkinMenuItem extends StatelessWidget {
-  final String title;
-
-  OilySkinMenuItem({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // เพิ่มการแสดงผลหรือการนำทางเมื่อคลิกที่เมนูย่อย
-        // ตัวอย่าง: สามารถเปิดหน้าใหม่หรือทำอื่น ๆ ตามความต้องการ
-        Navigator.of(context).pushReplacementNamed('/new_page');
-      },
-      child: Card(
-        elevation: 5.0,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(146, 255, 255, 255),
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(
+                  color: Color.fromARGB(64, 82, 72, 72),
+                  width: 2.0,
+                ),
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'ค้นหาเวชสำอางค์',
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(160, 77, 51, 51),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.brown,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: DefaultTabController(
+                length: 6,
+                child: Column(
+                  children: [
+                    TabBar(
+                     
+                      labelColor: Colors.brown, // เปลี่ยนสีของข้อความเมื่อถูกเลือก
+                      isScrollable: true,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: Colors.brown, // เปลี่ยนสีของข้อความที่ไม่ถูกเลือก
+                      labelPadding: EdgeInsets.symmetric(horizontal: 20),
+                      // เพิ่ม TabBar ที่นี่
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            "cleansing",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "moisturizer",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "sunscreen",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "serum",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "serum",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "serum",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          ItemsWidget(),
+                          ItemsWidget(),
+                          ItemsWidget(),
+                          ItemsWidget(),
+                          ItemsWidget(),
+                          ItemsWidget(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

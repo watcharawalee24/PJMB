@@ -15,7 +15,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   final _formkey = GlobalKey<FormState>();
-  late Users user;
+  Users user = Users();
 
   Future<void> addNewUser(Users user) async {
     var url = Uri.http(Configure.server, "users");
@@ -230,4 +230,6 @@ class _UserFormState extends State<UserForm> {
     },
     child: Text("Save"),
   );
- }}
+ }
+ 
+ }
