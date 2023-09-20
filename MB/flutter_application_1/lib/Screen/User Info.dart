@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/login_result.dart';
+import 'model/login_result.dart';
 
 
 class UserInfo extends StatelessWidget {

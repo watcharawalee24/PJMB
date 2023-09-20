@@ -15,6 +15,8 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
+
+
 class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> _messages = [];
   final TextEditingController _textController = TextEditingController();
@@ -32,9 +34,9 @@ class _ChatScreenState extends State<ChatScreen> {
     // เพิ่มตรงนี้
     // ตัวอย่างบทสนทนา
     if (text.toLowerCase().contains('เวชสำอางค์')) {
-      _addBotResponse('เวชสำอางค์คือสิ่งที่เราใช้เพื่อเสริมสวยหรือดูดีมากขึ้น เช่น ลิปสติก แป้ง เครื่องแต่งหน้า และอื่นๆ');
-    } else if (text.toLowerCase().contains('ควรใช้ลิปสติกสีอะไร')) {
-      _addBotResponse('การเลือกลิปสติกขึ้นอยู่กับสีผิวของคุณและสไตล์ที่คุณต้องการ คุณสามารถลองสีที่คุณชอบและเหมาะกับคุณ');
+      _addBotResponse('เวชสำอางค์คือที่เหมาะสำหรับคุณ ตามประเภทของผิวหนัง คุณมีผิวหน้าลักษณะใด');
+    } else if (text.toLowerCase().contains('ประเภทผิวมัน')) {
+      _addBotResponse('ขอแนะนำใช้เป็น Cerave สูตรโลชั่นค่ะ');
     } else {
       _addBotResponse('ฉันไม่เข้าใจคำถามของคุณ กรุณาถามคำถามใหม่');
     }
@@ -53,8 +55,11 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: Text('Chat',style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold,color: Colors.brown),
+        ),
+        backgroundColor: Colors.white,
       ),
+      backgroundColor: Color.fromARGB(255, 222, 208, 203),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -111,6 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
 class ChatMessage extends StatelessWidget {
   final String text;
   final bool isUserMessage;
+  
 
   ChatMessage({required this.text, this.isUserMessage = false});
 
@@ -131,7 +137,7 @@ class ChatMessage extends StatelessWidget {
           if (!isUserMessage)
             CircleAvatar(
               // แสดงรูปภาพผู้ส่ง
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color.fromARGB(255, 215, 228, 239),
               backgroundImage: NetworkImage(
                   'https://cdn.icon-icons.com/icons2/979/PNG/256/Doctor_Female_icon-icons.com_75050.png'),
               radius: 20.0,
@@ -140,14 +146,16 @@ class ChatMessage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: isUserMessage ? Colors.green : Colors.blue,
-                borderRadius: BorderRadius.circular(8.0),
+                color: isUserMessage ? Color.fromARGB(255, 126, 90, 77) : Color.fromARGB(255, 113, 95, 89),
+                borderRadius: BorderRadius.circular(60.0),
               ),
               child: ListTile(
                 title: Text(
                   text,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 255, 254, 254),
+                    fontSize: 16,
+                    
                   ),
                 ),
                 leading: SizedBox.shrink(), // ลบ leading ที่ถูกสร้างอัตโนมัติ
@@ -157,7 +165,7 @@ class ChatMessage extends StatelessWidget {
           if (isUserMessage)
             CircleAvatar(
               // แสดงรูปภาพผู้รับ
-              backgroundColor: Colors.green,
+              backgroundColor: const Color.fromARGB(255, 245, 251, 245),
               backgroundImage: NetworkImage(
                   'https://cdn.icon-icons.com/icons2/979/PNG/256/Patient_Female_icon-icons.com_75052.png'),
               radius: 20.0,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Screen/Cosmeceuticals.dart';
 import 'package:http/http.dart' as http;
-import '../model/config.dart';
-import '../model/login_result.dart';
+import 'model/config.dart';
+import 'model/login_result.dart';
 import 'User Form.dart';
 import 'User Info.dart';
 
@@ -38,15 +38,13 @@ class _EditState extends State<Edit> {
   }
 
   void handleLogout(BuildContext context) {
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacementNamed('/login');
-  }
+  Navigator.of(context).pop();
+}
 
   void openHome(BuildContext context) {
     Navigator.of(context).pushReplacementNamed(COSMECEUTICALS.routeName);
   }
    void editProfile(BuildContext context) {
-  Navigator.of(context).pushNamed(UserForm.routeName);
 }
 
  void showLeftMenu(BuildContext context) {
@@ -168,7 +166,7 @@ class _EditState extends State<Edit> {
           mainBody, // ใช้ mainBody ใน Stack
         ],
       ),
-      backgroundColor:Color.fromARGB(255, 222, 174, 157) ,
+      backgroundColor: Color.fromARGB(255, 243, 222, 214) ,
     
     );
   }

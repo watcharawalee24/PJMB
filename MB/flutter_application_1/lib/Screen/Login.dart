@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Screen/Cosmeceuticals.dart';
-import 'package:flutter_application_1/model/config.dart';
-import 'package:flutter_application_1/model/login_result.dart';
+import 'model/config.dart';
+import 'model/login_result.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
   return InkWell(
     child: const Text("Sign Up"), 
     onTap: () {
-      Navigator.pushNamed(context, '/add'); 
+      Navigator.pushNamed(context, '/userform'); 
     },
   );
 }

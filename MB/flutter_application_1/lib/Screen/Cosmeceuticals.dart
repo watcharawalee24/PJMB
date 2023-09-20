@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Screen/Edit.dart';
 import 'chat.dart';
@@ -5,6 +7,7 @@ import 'Oily Skin.dart';
 
 class COSMECEUTICALS extends StatefulWidget {
   static const routeName = '/cosmeceuticals';
+
   const COSMECEUTICALS({Key? key}) : super(key: key);
 
   @override
@@ -12,9 +15,7 @@ class COSMECEUTICALS extends StatefulWidget {
 }
 
 class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
-  String loggedInUser = 'Puttaraporn Prasansang';
-
-
+  String loggedInUser = '';
 
   void handleLogout(BuildContext context) {
     Navigator.of(context).pushReplacementNamed('/');
@@ -27,6 +28,7 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
       ),
     );
   }
+
   void edituser(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -78,13 +80,12 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
     if (title == "ผิวมัน") {
       Navigator.pushNamed(context, OilySkin.routeName);
     } else {
-      // ใส่โค้ดอื่นๆ สำหรับ CosmeticsBox ที่ title ไม่ใช่ "ผิวมัน" ที่นี่
+      // Handle other CosmeticsBox categories here.
     }
   }
-
-  @override
   
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -143,43 +144,87 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
           },
         ),
       ),
-      body: Stack(
-        children: [
-          GridView.count(
-            crossAxisCount: 2,
-            children: <Widget>[
-              CosmeticsBox(
-                title: "ผิวมัน",
-                image:
-                    "https://i.pinimg.com/474x/e7/9c/83/e79c83345325c8169c9755b1a1299018.jpg",
-                onTap: () {
-                  onTapCosmeticsBox("ผิวมัน", context);
-                },
-              ),
-              CosmeticsBox(
-                title: "ผิวผสม",
-                image:
-                    "https://i.pinimg.com/564x/04/e9/42/04e9428fdc68c1781ded170dc27afe4a.jpg",
-                onTap: () {},
-              ),
-              CosmeticsBox(
-                title: "ผิวแห้ง",
-                image:
-                    "https://i.pinimg.com/564x/84/53/76/8453761424031c86d6274e353fbc3485.jpg",
-                onTap: () {},
-              ),
-              CosmeticsBox(
-                title: "ผิวแพ้ง่าย",
-                image:
-                    "https://i.pinimg.com/564x/ff/6b/7b/ff6b7b31c4f3c44e2ee99353875427b5.jpg",
-                onTap: () {},
-              ),
-              // เพิ่ม CosmeticsBox อื่นๆ ที่คุณต้องการ
-            ],
-          ),
-          // ใช้ mainBody ใน Stack
-        ],
+body: Stack(
+  children: [
+    // Background Image
+   Container(
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: NetworkImage(
+        'https://i.pinimg.com/564x/ad/13/e9/ad13e949641dd3151d3fb361d9fe5e2a.jpg',
       ),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: BackdropFilter(
+    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 3), 
+    child: Container(
+      color: Colors.black.withOpacity(0), // สีพื้นหลังที่ใช้กับ BackdropFilter
+    ),
+  ),
+),
+     
+    Positioned(
+  child: FractionalTranslation(
+    translation: Offset(0.2, 1.4), 
+    child: Container(
+      padding: EdgeInsets.all(16.0), 
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Text(
+        "YOUR SKIN TYPE ?",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  ),
+),
+
+    
+    GridView.count(
+      crossAxisCount: 2,
+      children: <Widget>[
+        Align(alignment: Alignment.bottomCenter),
+        Align(alignment: Alignment.bottomCenter),
+        CosmeticsBox(
+          
+          title: "ผิวมัน",
+          image:
+              "https://i.pinimg.com/564x/17/ec/25/17ec25921f67afbc089a5ef0b9de005d.jpg",
+          
+          onTap: () {
+            onTapCosmeticsBox("ผิวมัน", context);
+          },
+        ),
+        CosmeticsBox(
+          title: "ผิวผสม",
+          image:
+              "https://i.pinimg.com/564x/44/07/d9/4407d9e25da4306e89ea5462ff3f7916.jpg",
+          onTap: () {},
+        ),
+        CosmeticsBox(
+          title: "ผิวแห้ง",
+          image:
+              "https://i.pinimg.com/564x/2a/4d/59/2a4d596a1f8b942cbea22d4c946dbf97.jpg",
+          onTap: () {},
+        ),
+        CosmeticsBox(
+          title: "ผิวแพ้ง่าย",
+          image:
+              "https://i.pinimg.com/564x/c4/5d/52/c45d528f75138d04b06aefb50f59d34d.jpg",
+          onTap: () {},
+        ),
+        // Add other CosmeticsBox categories as needed
+      ],
+    ),
+  ],
+),
+
       floatingActionButton: Align(
         alignment: Alignment.bottomRight,
         child: Padding(
@@ -194,6 +239,7 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
                   MaterialPageRoute(builder: (context) => ChatScreen()),
                 );
               },
+              backgroundColor: Colors.brown,
               child: Icon(Icons.chat),
             ),
           ),
@@ -201,18 +247,18 @@ class _COSMECEUTICALSState extends State<COSMECEUTICALS> {
       ),
     );
   }
-
-  // เพิ่ม showUsers ใน _COSMECEUTICALSState
-  
-  }
-
+}
 
 class CosmeticsBox extends StatelessWidget {
   final String title;
   final String image;
   final VoidCallback onTap;
 
-  CosmeticsBox({required this.title, required this.image, required this.onTap});
+  CosmeticsBox({
+    required this.title,
+    required this.image,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +282,7 @@ class CosmeticsBox extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize:18.00,
                   fontWeight: FontWeight.bold,
                 ),
               ),

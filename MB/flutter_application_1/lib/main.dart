@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Screen/Add.dart';
 import 'package:flutter_application_1/Screen/Cosmeceuticals.dart';
 import 'package:flutter_application_1/Screen/Edit.dart';
 import 'package:flutter_application_1/Screen/Login.dart';
@@ -8,6 +7,11 @@ import 'package:flutter_application_1/Screen/Oily%20Skin.dart';
 import 'package:flutter_application_1/Screen/chat.dart';
 import 'Screen/Begin.dart';
 import 'Screen/User Form.dart';
+import 'Screen/cart.dart';
+
+
+
+
 
 void main() {
   runApp(const MainApp());
@@ -30,7 +34,9 @@ class MainApp extends StatelessWidget {
         '/chat':(context) => ChatScreen(),
         '/oilyskin':(context) => OilySkin(),
         '/edit':(context) => Edit(),
-        '/add':(context) => Add(),
+        '/cart':(context) => Cart(),
+      
+       
         
       
       },

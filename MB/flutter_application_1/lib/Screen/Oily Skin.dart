@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Screen/Edit.dart';
 import 'items_widget.dart';
+import 'items_widget2.dart';
+import 'items_widget3.dart';
+import 'items_widget4.dart';
+
 
 class OilySkin extends StatefulWidget {
   static const routeName = '/oilyskin';
@@ -10,13 +15,16 @@ class OilySkin extends StatefulWidget {
   State<OilySkin> createState() => _OilySkinState();
 }
 
-class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin {
-  String loggedInUser = 'Puttaraporn Prasansang';
- 
-  
+class _OilySkinState extends State<OilySkin> {
+  int _cartItemCount = 0; 
+
   void handleLogout(BuildContext context) {
     Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed('/');
+  }
+
+  void editProfile(BuildContext context) {
+    Navigator.pushNamed(context, Edit.routeName);
   }
 
   void showLeftMenu(BuildContext context) {
@@ -46,12 +54,12 @@ class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin
         ),
         PopupMenuItem(
           child: ListTile(
-            leading: Icon(Icons.exit_to_app),
+            leading: Icon(Icons.person),
             title: Text('แก้ไขข้อมูลผู้ใช้'),
           ),
           onTap: () {
-            Navigator.of(context).pop();
-            handleLogout(context);
+           Navigator.of(context).pushReplacementNamed('/edit');
+  
           },
         ),
       ],
@@ -78,31 +86,39 @@ class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin
             children: [
               IconButton(
                 icon: Tooltip(
-                  message: '',
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.grey,
-                    size: 36.0,
+                  message: 'ตระกร้าสินค้า',
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        color: const Color.fromARGB(255, 81, 74, 74),
+                        size: 36.0,
+                      ),
+                      if (_cartItemCount > 0) 
+                        Positioned(
+                          right: 5,
+                          top: 5,
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 77, 59, 56), 
+                            ),
+                            child: Text(
+                              _cartItemCount.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('ข้อมูลผู้ใช้'),
-                        content: Center(child: Text('คุณ $loggedInUser ใช้งานอยู่')),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('ปิด'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  Navigator.pushNamed(context, CartPage.routeName);
                 },
               ),
             ],
@@ -141,6 +157,7 @@ class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin
                   hintText: 'ค้นหาเวชสำอางค์',
                   hintStyle: TextStyle(
                     color: Color.fromARGB(160, 77, 51, 51),
+                    fontSize: 20,
                   ),
                   prefixIcon: Icon(
                     Icons.search,
@@ -151,52 +168,40 @@ class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin
             ),
             Expanded(
               child: DefaultTabController(
-                length: 6,
+                length: 4,
                 child: Column(
                   children: [
                     TabBar(
-                     
-                      labelColor: Colors.brown, // เปลี่ยนสีของข้อความเมื่อถูกเลือก
+                      labelColor:
+                          Colors.brown, // เปลี่ยนสีของข้อความเมื่อถูกเลือก
                       isScrollable: true,
                       unselectedLabelColor: Colors.grey,
-                      indicatorColor: Colors.brown, // เปลี่ยนสีของข้อความที่ไม่ถูกเลือก
+                      indicatorColor:
+                          Colors.brown, // เปลี่ยนสีของข้อความที่ไม่ถูกเลือก
                       labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                      // เพิ่ม TabBar ที่นี่
                       tabs: [
                         Tab(
                           child: Text(
                             "cleansing",
-                            style: TextStyle(fontSize: 16.0),
+                            style: TextStyle(fontSize: 20.0),
                           ),
                         ),
                         Tab(
                           child: Text(
                             "moisturizer",
-                            style: TextStyle(fontSize: 16.0),
+                            style: TextStyle(fontSize: 20.0),
                           ),
                         ),
                         Tab(
                           child: Text(
                             "sunscreen",
-                            style: TextStyle(fontSize: 16.0),
+                            style: TextStyle(fontSize: 20.0),
                           ),
                         ),
                         Tab(
                           child: Text(
                             "serum",
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            "serum",
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            "serum",
-                            style: TextStyle(fontSize: 16.0),
+                            style: TextStyle(fontSize: 20.0),
                           ),
                         ),
                       ],
@@ -206,11 +211,9 @@ class _OilySkinState extends State<OilySkin> with SingleTickerProviderStateMixin
                       child: TabBarView(
                         children: [
                           ItemsWidget(),
-                          ItemsWidget(),
-                          ItemsWidget(),
-                          ItemsWidget(),
-                          ItemsWidget(),
-                          ItemsWidget(),
+                          moisturizer(),
+                          sunscreen(),
+                          serum(),
                         ],
                       ),
                     ),

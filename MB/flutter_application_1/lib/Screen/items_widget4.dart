@@ -1,0 +1,172 @@
+import 'package:flutter/material.dart';
+
+
+
+class serum  extends StatelessWidget {
+  final List<String> imgUrls = [
+    'https://www.dermastore.co.za/wp-content/uploads/2023/07/LRP-cicaplast-B5-serum.png',
+    'https://www.beauticool.com/product_images/61235991da3a2.png',
+    'https://skinmoderne.com/cdn/shop/products/BIO-FORTIFY1_1000x1000.png?v=1642498181',
+    'https://www.pibu.gr/wp-content/uploads/2022/10/Madagascar-Centella-Hyalu-Cica-Blue-Serum-Skin1004-BIG.png',
+    'https://mizumithailand.com/wp-content/uploads/2022/09/sec1cica01.png',
+    'https://smooth-e.com/wp-content/uploads/2014/08/1587947317.89525c4b45bad1d4ec4c7ebfc9419a26.png',
+  ];
+  final List<Map<String, String>> items = [
+    {
+      'name': 'Lo Roche',
+      'description': 'Sesum',
+      'price': '1099 ฿',
+      'rating': '★★★★★'
+    },
+    {
+      'name': 'Kielh',
+      'description': 'Serum',
+      'price': '1020 ฿',
+      'rating': '★★★☆☆'
+    },
+    {
+      'name': 'Bio Doctor',
+      'description': 'Serum',
+      'price': '1029 ฿',
+      'rating': '★★★★★'
+    },
+    {
+      'name': 'Centella',
+      'description': 'Serum',
+      'price': '790 ฿',
+      'rating': '★★★☆☆'
+    },
+    {
+      'name': 'biore',
+      'description': ' Micellar Ultra',
+      'price': '799 ฿',
+      'rating': '★★★★★'
+    },
+    {
+      'name': 'smooth-e',
+      'description': 'Micellar Cleanser',
+      'price': '690 ฿',
+      'rating': '★★★☆☆'
+    },
+  ];
+
+  serum({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      physics: NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      mainAxisSpacing: 7, // ระยะห่างระหว่างรายการในแนวแกนหลัก
+      crossAxisSpacing: 5, // ระยะห่างระหว่างรายการในแนวแกนข้าง
+      shrinkWrap: true,
+      childAspectRatio: (170 / 250),
+      children: [
+        for (int i = 0; i < imgUrls.length; i++)
+        
+          Container(
+            
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 255, 255, 255),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 113, 76, 62),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    // ใส่โค้ดที่คุณต้องการเมื่อคลิกที่รูปภาพ
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(5),
+                    child: Image.network(
+                      imgUrls[i],
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 1),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          items[i]['name'] ?? '',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.brown,
+                          ),
+                        ),
+                        Text(
+                          items[i]['description'] ?? '',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: const Color.fromARGB(255, 142, 107, 107),
+                          ),
+                        ),
+                        Text(
+                          items[i]['price'] ?? '',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                            color:
+                                const Color.fromARGB(255, 0, 0, 0), // สีของราคา
+                          ),
+                        ),
+                        Text(
+                          items[i]['rating'] ?? '',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color:
+                                Color.fromARGB(255, 246, 194, 50), // สีของดาว
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    width: 40, // กำหนดความกว้างของปุ่ม
+                    height: 40, // กำหนดความสูงของปุ่ม
+                    margin: EdgeInsets.only(top: 0, right: 3),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.add,
+                        size: 24, // กำหนดขนาดของไอคอน
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                      },
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 51, 0),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
+              
+            ),
+            
+          ),
+      ],
+    );
+  }
+}

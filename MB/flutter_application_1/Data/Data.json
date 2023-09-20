@@ -1,0 +1,54 @@
+{
+  "Users": [
+    {
+      "id": 2,
+      "firstName": "Watcharawalee",
+      "lastName": "Junapong",
+      "age": 20,
+      "Skintype": "Combination Skin",
+      "email": "b@test.com",
+      "password": "64112758",
+      "address": "จังหวัดสงขลา อำเภอเมือง ตำบลบ่อยาง  post:90000"
+    },
+    {
+      "id": 3,
+      "firstName": "Huttaya",
+      "lastName": "Yodpijit",
+      "age": 21,
+      "Skintype": "Sensitive Skin",
+      "email": "c@test.com",
+      "password": "64115512",
+      "address": "จังหวัดนครศรีธรรมราช อำเภอท่าศาลา ตำบลท่าศาลา  post:80160"
+    },
+    {
+      "id": 6,
+      "firstName": "Pattaraporn",
+      "lastName": "Prasansang",
+      "age": 21,
+      "Skintype": "Oily Skin",
+      "email": "a@test.com",
+      "password": "64110570",
+      "address": "จังหวัดสงขลา อำเภอระโนก อำเภอบ่อตรุ"
+    },
+    {
+      "id": 7,
+      "firstName": "pattata",
+      "lastName": "prasnada",
+      "age": 45,
+      "Skintype": "oily",
+      "email": "h@test.com",
+      "password": "8787",
+      "address": "thasa"
+    }
+  ],
+  "myList": [
+    {
+      "img": "https://www.cerave.co.th/-/media/Project/Loreal/BrandSites/CeraVe/Master/CeraveAPAC/Hong-Kong/Shared/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
+      "name": "Cerave",
+      "description": "Cleanser",
+      "price": 699,
+      "quantity": 1,
+      "id": 1
+    }
+  ]
+}
